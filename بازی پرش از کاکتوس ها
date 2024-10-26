@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fa" onclick="jump()">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی پرش از کاکتوس</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+        #board {
+            width: 500px;
+            height: 210px;
+            border: 2px solid #333;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        #dino {
+            width: 90px;
+            height: 125px;
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+        }
+        .animate {
+            animation: jumping 700ms ease-in-out;
+        }
+        @keyframes jumping {
+            0% {bottom: 0;}
+            30% {bottom: 80px;}
+            70% {bottom: 80px;}
+            100% {bottom: 0;}
+        }
+        #kaktus {
+            position: absolute;
+            left: 480px;
+            animation: kaktus_moving 2s infinite linear;
+        }
+        @keyframes kaktus_moving {
+            0% { left: 480px; }
+            100% { left: -20px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="board">
+        <img src="msg32619313-25316 (1).jpg" id="dino">
+        <img width="50" src="https://img.icons8.com/fluency/48/cactus.png" id="kaktus">
+    </div>
+    <script>
+        const dino_trex = document.getElementById('dino');
+        const kaktus = document.getElementById('kaktus');
+        
+
+        function jump() {
+            if (!dino_trex.classList.contains('animate')) {
+                dino_trex.classList.add('animate');
+            }
+            setTimeout(function() {
+                dino_trex.classList.remove('animate');
+            }, 700);
+        }
+
+        let die_checker = setInterval(function() {
+            let dino_top = parseInt(window.getComputedStyle(dino_trex).getPropertyValue('bottom'));
+            let kaktus_left = parseInt(window.getComputedStyle(kaktus).getPropertyValue('left'));
+            if (kaktus_left > 0 && kaktus_left < 50 && dino_top <= 20) {
+                alert('نیکان باخت!');
+            }
+        }, 10);
+
+        setInterval(function() {
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+    
+            let randomNumber = getRandomInt(50, 72);
+            kaktus.style.height = randomNumber + 'px'
+            kaktus.style.top = (210 - randomNumber + 5) + 'px'
+        }, 2000)
+
+
+    </script>
+</body>
+</html>
